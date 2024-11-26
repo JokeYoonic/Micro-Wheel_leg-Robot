@@ -19,11 +19,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // -----------------------------------------------------------------------------
-
-#pragma once
+/*这是一个C++头文件，定义了RobotProtocpl类以及一些相关的数据结构和枚举类型*/
+#pragma once 
+/*这是预处理指令，确保该头文件只被包含一次，防止重复定义*/
 
 #include <WiFi.h>
 #include <ArduinoJson.h>
+
+//包含两个头文件，WiFi.h和ArduinoJson.h，分别用于WiFi连接和JSON解析
 
 typedef struct {
   int height = 38;
@@ -38,8 +41,11 @@ typedef struct {
   int joyx_last;
   bool go;
 }Wrobot;
+//定义了一个名为Wrobot的结构体，包含了一些成员变量，用于控制机器人的运动
 
 extern Wrobot wrobot;
+//声明了一个名为wrobot的全局变量，类型为Wrobot结构体，用于存储机器人的运动状态和参数
+
 
 // 机器人运动状态枚举
 typedef enum {
@@ -50,13 +56,14 @@ typedef enum {
 	STOP,
   JUMP,         		
 } QR_State_t; 
-
+//定义了一个名为QR_State_t的枚举类型，包含了一些机器人运动状态的枚举值
 
 	
 // 机器人模式枚举类型
 typedef enum {
   BASIC = 0,
 } Robot_Mode_t; 
+//定义了一个名为Robot_Mode_t的枚举类型，包含了一个枚举值BASIC
 
 class RobotProtocol
 {
@@ -72,3 +79,4 @@ class RobotProtocol
 		void UART_WriteBuf(void);
 		int checkBufRefresh(void);
 };
+//定义了一个名为RobotProtocol的类，包含了一些成员函数和成员变量，用于处理机器人的通信协议

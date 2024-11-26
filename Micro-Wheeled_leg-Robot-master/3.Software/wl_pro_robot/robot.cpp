@@ -20,9 +20,9 @@
 // THE SOFTWARE.
 // -----------------------------------------------------------------------------
 
-#include "robot.h"
+#include "robot.h" 
 
-Wrobot wrobot;
+Wrobot wrobot; //机器人控制对象
 RobotProtocol::RobotProtocol(uint8_t len)
 {
     _len = len;
@@ -36,12 +36,15 @@ RobotProtocol::RobotProtocol(uint8_t len)
     _now_buf[0] = 0xAA;
     _now_buf[1] = 0x55;
 }
+//构造函数初始化了协议的长度_len，并分配了两个缓冲区_now_buf和_old_buf用于存储当前和之前的协议数据。
+//初始化时，将缓冲区的所有元素设为0，并将前两个字节设为固定的帧头0xAA和0x55
 
 RobotProtocol::~RobotProtocol()
 {
     delete [] _now_buf;
     delete [] _old_buf;
 }
+//析构函数释放了之前分配的缓冲区内存
 
 void RobotProtocol::spinOnce(void)
 {
@@ -60,7 +63,7 @@ void RobotProtocol::spinOnce(void)
 //        Serial.printf("joy_Y:%d\n", wrobot.joyy);
     }
 }
-
+//spinOnce函数用于检查缓冲区中的数据是否发生变化(如果发生变化，则调用UART_WriteBuf函数将数据发送出去).
 
 
 
@@ -77,6 +80,7 @@ void RobotProtocol::UART_WriteBuf(void)
         Serial.write(_now_buf[i]);
     }
 }
+//UART_WriteBuf函数用于将当前缓冲区中的数据通过串口发送出去。
 
 int RobotProtocol::checkBufRefresh(void)
 {
@@ -96,6 +100,8 @@ int RobotProtocol::checkBufRefresh(void)
     }
     return ret;
 }
+//checkBufRefresh函数用于检查当前缓冲区中的数据是否与之前缓冲区中的数据相同，如果不同则返回1，否则返回0。
+//同时，将当前缓冲区中的数据复制到之前缓冲区中，以便下一次比较。
 
 void RobotProtocol::parseBasic(StaticJsonDocument<300> &doc)
 {
@@ -187,3 +193,6 @@ void RobotProtocol::parseBasic(StaticJsonDocument<300> &doc)
     }
     _now_buf[15] = abs(joy_y); 
 }
+//parseBasic函数用于解析web端发送过来的基本控制协议，并将解析后的数据存储到当前缓冲区中。
+//同时，将解析后的数据存储到wrobot结构体中，以便在其他地方使用。
+//包括方向、高度、倾斜角度、线速度、角速度、稳定性、摇杆X轴和Y轴数据等。
