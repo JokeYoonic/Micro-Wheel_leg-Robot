@@ -11,3 +11,9 @@ Reproduce https://github.com/MuShibo/Micro-Wheeled_leg-Robot.
 
 ### Day 2:
 1. Web与机器人的基本控制协议代码通读及注释（Weichen）
+
+## Week 3:
+打印零部件、加工CNC零件
+
+## Week 4:
+硬件部分设计与制造
